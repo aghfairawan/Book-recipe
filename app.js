@@ -5,14 +5,9 @@ const databaseMidleware = require('./midleware/database-midleware.js');
 const authRouter = require('./routes/auth-route.js')
 const bookRouter = require('./routes/book-route.js')
 const authMiddleware = require('./midleware/authentication-midlware.js')
-const swaggerUi = require('swagger-ui-express');
-const yaml = require('yaml')
-const fs = require('fs')
-const OpenApiValidator = require('express-openapi-validator');
+
 const cors = require('cors');
-const openApiPath = './doc/openapi.yaml'
-const file = fs.readFileSync(openApiPath, 'utf8')
-const swaggerDocument = yaml.parse(file)
+
 
 
 const app = express()
@@ -20,11 +15,6 @@ const app = express()
 app.use(express.json())
 app.use(cors());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-// app.use(OpenApiValidator.middleware({
-//   apiSpec: openApiPath,
-//   validateRequests: true,
-// }))
 
 app.use(databaseMidleware)
 
